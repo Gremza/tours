@@ -114,8 +114,6 @@ function gr_post_travel() {
 		'description'           => __( 'Torus', 'lalutheme' ),
 		'labels'                => $labels,
 		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes', 'post-formats' ),
-		'taxonomies'            => array( 'category', 'post_tag' ),
-		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
 		'show_in_menu'          => true,
@@ -130,7 +128,17 @@ function gr_post_travel() {
 		'capability_type'       => 'post',
 	);
 	register_post_type( 'tours', $args );
-
+ register_taxonomy(  
+    'tours_type',  
+    'tours',  // this is the custom post type(s) I want to use this taxonomy for
+        array(  
+            'hierarchical' => true,  
+            'label' => 'Tours Category',  
+            
+            'rewrite' => true  
+        )  
+    );  
+    register_taxonomy_for_object_type('tours_type', 'tours');
 }
 add_action( 'init', 'gr_post_travel', 0 );
 }
@@ -149,47 +157,4 @@ function load_tours_template( $template ) {
 }
 
 add_filter( 'single_template', 'load_tours_template' );  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
- 
 run_gr_tours();
