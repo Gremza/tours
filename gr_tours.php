@@ -129,11 +129,22 @@ function gr_post_travel() {
 	);
 	register_post_type( 'tours', $args );
  register_taxonomy(  
+    'tours_destination',  
+    'tours',  // this is the custom post type(s) I want to use this taxonomy for
+        array(  
+            'hierarchical' => true,  
+            'label' => 'Tours Destination',  
+            
+            'rewrite' => true  
+        )  
+    );  
+    register_taxonomy_for_object_type('tours_destination', 'tours');
+	 register_taxonomy(  
     'tours_type',  
     'tours',  // this is the custom post type(s) I want to use this taxonomy for
         array(  
             'hierarchical' => true,  
-            'label' => 'Tours Category',  
+            'label' => 'Tours Type',  
             
             'rewrite' => true  
         )  
@@ -157,4 +168,46 @@ function load_tours_template( $template ) {
 }
 
 add_filter( 'single_template', 'load_tours_template' );  
+  
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
 run_gr_tours();
