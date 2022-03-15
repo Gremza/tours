@@ -125,31 +125,51 @@ function gr_post_travel() {
 		'has_archive'           => true,
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
-		'capability_type'       => 'post',
+		'capability_type'       => 'post', 
 	);
 	register_post_type( 'tours', $args );
- register_taxonomy(  
+register_taxonomy(  
     'tours_destination',  
     'tours',  // this is the custom post type(s) I want to use this taxonomy for
         array(  
             'hierarchical' => true,  
-            'label' => 'Tours Destination',  
-            
+            'label' => 'Where',  
+          	 'orderby' => 'id',
             'rewrite' => true  
         )  
     );  
-    register_taxonomy_for_object_type('tours_destination', 'tours');
-	 register_taxonomy(  
+register_taxonomy_for_object_type('tours_destination', 'tours');
+	
+register_taxonomy(  
     'tours_type',  
     'tours',  // this is the custom post type(s) I want to use this taxonomy for
         array(  
             'hierarchical' => true,  
-            'label' => 'Tours Type',  
-            
+            'label' => 'How',  
+             'orderby' => 'id',
             'rewrite' => true  
         )  
     );  
     register_taxonomy_for_object_type('tours_type', 'tours');
+	
+
+register_taxonomy(  
+    'tours_valid',  
+    'tours',  // this is the custom post type(s) I want to use this taxonomy for
+        array(  
+            'hierarchical' => true,  
+            'label' => 'When ',  
+            'orderby' => 'id',
+            'rewrite' => true  
+        )  
+    );  
+    register_taxonomy_for_object_type('tours_valid', 'tours');	
+	
+	
+	
+	
+	
+	
 }
 add_action( 'init', 'gr_post_travel', 0 );
 }
@@ -168,12 +188,27 @@ function load_tours_template( $template ) {
 }
 
 add_filter( 'single_template', 'load_tours_template' );  
-  
-  
-   
-  
-  
-  
+
+
+ 
+    
+    
+    
+    
+  function load_tours_template1( $template ) {
+    global $post;
+
+    if ( 'tours' === $post->post_type && locate_template( array( 'single-tours.php' ) ) !== $template ) {
+        
+        return plugin_dir_path( __FILE__ ) . 'archive-tours.php';
+    }
+
+    return $template;
+}
+
+add_filter( 'archive_template', 'load_tours_template1' );  
+
+
   
   
   
